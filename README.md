@@ -1,13 +1,13 @@
 # Library Management System
 
-> A simple Java project for managing Books and Users in a library. It's a coding practice.
+A simple Java project for managing Books and Users in a library.
 
 ## Descrption
 This project allows admin and users to borow and return books. Admin can add, remove books, view all issues. Users can search and isue books.
 
 ## Feautures
-- Admin memu: add, remove, view, issue and return books
-- User menue: search books, issue and return
+- Admin memu: add book, remove book, view book, accept return, add member
+- User menue: view, search and borrow books
 - Data stored in memory (no DB)
 - Clean and simpe CLI interface
 
@@ -19,6 +19,9 @@ LibraryManagementSystem/
 │   ├── model/
 │   │   ├── Book.java
 │   |   ├── IssuedBook.java
+│   |   ├── Admin.java
+│   |   ├── Role.java
+│   |   ├── Member.java
 │   │   └── User.java
 │   └── service/
 │       └── Library.java
@@ -46,7 +49,7 @@ LibraryManagementSystem/
    ```
 
 ## Usage
-- Login as **admin** (username: admin, password: admin123)
+- Login as **admin** (username: admin, Id: 1, password: admin123)
 - Use the menues to manage books
 - Login as **user** (signup first)
 
