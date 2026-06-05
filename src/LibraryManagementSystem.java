@@ -6,7 +6,7 @@ public class LibraryManagementSystem {
 
     public static void main(String[] args) {
         Library library = new Library();
-        User superAdmin = new Admin("DefaultAdmin", "default123@gmail.com", "demo123");
+        User superAdmin = new Admin("admin", "admin@example.com", "admin123");
         Scanner scanner = new Scanner(System.in);
 
         library.registerUser(superAdmin);
@@ -26,7 +26,7 @@ public class LibraryManagementSystem {
                 System.out.println("Invalid input. Please enter a number.");
                 continue;
             }
-            
+
             switch(mainChoice) {
                 case 1:
                     Admin admin = authenticateAdmin(library, scanner);
@@ -57,7 +57,7 @@ public class LibraryManagementSystem {
             System.out.println("Invalid ID format. Returning to main menu.");
             return null;
         }
-        
+
         User user = library.getUser(aId);
         if(!(user instanceof Admin)){
             System.out.println("No admin found with this ID.");
@@ -76,7 +76,7 @@ public class LibraryManagementSystem {
 
         return (Admin) user;
     }
-    
+
     public static Member authenticateMember(Library library, Scanner scanner){
         int mId;
         System.out.print("Enter Member Id: ");
@@ -86,7 +86,7 @@ public class LibraryManagementSystem {
             System.out.println("Invalid ID format. Returning to main menu.");
             return null;
         }
-        
+
         User user = library.getUser(mId);
         if(!(user instanceof Member)){
             System.out.println("No member found with this ID.");
@@ -107,7 +107,7 @@ public class LibraryManagementSystem {
 
     public static void adminMenu(Admin admin, Library library, Scanner scanner){
         boolean exit = false;
-        
+
         while(!exit){
             System.out.println("--- Welcome to Admin Menu(Id: " + admin.getId() + ") ---");
             System.out.println("1: Add Member");
@@ -116,8 +116,9 @@ public class LibraryManagementSystem {
             System.out.println("4: View all Books");
             System.out.println("5: View Available Books");
             System.out.println("6: Search Book");
-            System.out.println("7: Accept Return From Member");
-            System.out.println("8: Logout");
+            System.out.println("7: View Issued Books");
+            System.out.println("8: Accept Return From Member");
+            System.out.println("9: Logout");
             System.out.print("Enter your choice: ");
 
             int choice;
@@ -156,9 +157,17 @@ public class LibraryManagementSystem {
                         System.out.println("Invalid quantity. Operation aborted.");
                         break;
                     }
+                    if(bQuantity <= 0){
+                        System.out.println("Quantity must be greater than zero. Operation aborted.");
+                        break;
+                    }
 
-                    Book newBook = new Book(bTitle, bAuthor, bPublisher, bQuantity);
-                    library.addBook(admin, newBook);
+                    try {
+                        Book newBook = new Book(bTitle, bAuthor, bPublisher, bQuantity);
+                        library.addBook(admin, newBook);
+                    } catch (IllegalArgumentException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 3:
                     System.out.print("Enter book ID to remove: ");
@@ -171,8 +180,9 @@ public class LibraryManagementSystem {
                     }
                     Book cur = library.getBook(bId);
                     if(cur != null){
-                        library.removeBook(admin, cur);
-                        System.out.println("Book removed Succesfully");
+                        if(library.removeBook(admin, cur)){
+                            System.out.println("Book removed Successfully");
+                        }
                     }else{
                         System.out.println("Book Not Found");
                     }
@@ -195,17 +205,20 @@ public class LibraryManagementSystem {
                     }
                     break;
                 case 7:
+                    library.viewIssuedBooks();
+                    break;
+                case 8:
                     System.out.print("Enter Issue Id: ");
                     int issueId;
                     try {
                         issueId = Integer.parseInt(scanner.nextLine());
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid quantity. Operation aborted.");
+                        System.out.println("Invalid issue ID. Operation aborted.");
                         break;
                     }
                     library.returnBook(issueId);
                     break;
-                case 8:
+                case 9:
                     System.out.println("Logging out..");
                     exit = true;
                     break;
@@ -216,7 +229,7 @@ public class LibraryManagementSystem {
 
     }
 
-        
+
     public static void memberMenu(Member member, Library library, Scanner scanner){
         boolean exit = false;
         while (!exit) {
@@ -225,14 +238,14 @@ public class LibraryManagementSystem {
             System.out.println("2: Search Book");
             System.out.println("3: Borrow Book");
             System.out.println("4: Logout");
-            System.err.print("Enter your choice: ");
+            System.out.print("Enter your choice: ");
 
             int choice;
             try {
                 choice = Integer.parseInt(scanner.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid quantity. Operation aborted.");
-                break;
+                System.out.println("Invalid input. Please enter a number.");
+                continue;
             }
 
             switch (choice) {
@@ -256,7 +269,7 @@ public class LibraryManagementSystem {
                     try {
                         bId= Integer.parseInt(scanner.nextLine());
                     } catch (NumberFormatException e) {
-                        System.out.println("Invalid quantity. Operation aborted.");
+                        System.out.println("Invalid book ID. Operation aborted.");
                         break;
                     }
                     library.borrowBook(member, bId);

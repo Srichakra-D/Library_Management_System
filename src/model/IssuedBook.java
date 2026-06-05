@@ -31,7 +31,7 @@ public class IssuedBook {
 
     @Override
     public String toString() {
-        return String.format("Book ID: %d | User ID: %d | Issued: %s | Returned: %s",
-                book.getId(), user.getId(), issueDate, (returnDate == null ? "Not returned" : returnDate));
+        return String.format("Issue ID: %d | Book ID: %d | Title: %s | User ID: %d | Issued: %s | Returned: %s",
+                issueId, book.getId(), book.getTitle(), user.getId(), issueDate, (returnDate == null ? "Not returned" : returnDate));
     }
 }

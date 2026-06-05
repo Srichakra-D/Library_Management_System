@@ -1,15 +1,15 @@
 # Library Management System
 
-A simple Java project for managing Books and Users in a library.
+A simple Java project for managing books and users in a library.
 
-## Descrption
-This project allows admin and users to borow and return books. Admin can add, remove books, view all issues. Users can search and isue books.
+## Description
+This project allows admins to manage members, books, and issued-book records. Members can view, search, and borrow available books. Admins accept book returns by issue ID.
 
-## Feautures
-- Admin memu: add book, remove book, view book, accept return, add member
-- User menue: view, search and borrow books
+## Features
+- Admin menu: add member, add book, remove book, view books, view available books, search books, view issued books, accept returns
+- Member menu: view available books, search books, borrow books
 - Data stored in memory (no DB)
-- Clean and simpe CLI interface
+- Simple CLI interface
 
 ## Folder Structure
 ```
@@ -25,15 +25,15 @@ LibraryManagementSystem/
 │   │   └── User.java
 │   └── service/
 │       └── Library.java
-├── bin/  ← compiled .class files
+├── bin/  # compiled .class files
 └── README.md
 ```
 
 ## Prerequisites
-- Java JDK 8 or above installd
+- Java JDK 8 or above installed
 - VS Code or any IDE
 
-## Instalation & Run
+## Installation & Run
 1. Clone the repo:
    ```bash
    git clone https://github.com/Srichakra-D/Library_Management_System
@@ -49,9 +49,9 @@ LibraryManagementSystem/
    ```
 
 ## Usage
-- Login as **admin** (username: admin, Id: 1, password: admin123)
-- Use the menues to manage books
-- Login as **user** (signup first)
+- Login as admin with ID `1` and password `admin123`
+- Use the admin menu to add members and books
+- Members can log in after an admin creates their account
 
 ## Contribute
 Feel free to fork and make PRs.
