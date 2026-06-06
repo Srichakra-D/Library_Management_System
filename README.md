@@ -26,6 +26,8 @@ LibraryManagementSystem/
 │   └── service/
 │       └── Library.java
 ├── bin/  # compiled .class files
+├── test/
+│   └── LibraryServiceTest.java
 └── README.md
 ```
 
@@ -47,6 +49,13 @@ LibraryManagementSystem/
    ```bash
    java -cp bin LibraryManagementSystem
    ```
+
+## Tests
+Compile and run the dependency-free regression tests:
+```bash
+javac -d test-bin src/model/*.java src/service/*.java test/LibraryServiceTest.java
+java -cp test-bin LibraryServiceTest
+```
 
 ## Usage
 - Login as admin with ID `1` and password `admin123`
