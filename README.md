@@ -6,8 +6,8 @@ A simple Java project for managing books and users in a library.
 This project allows admins to manage members, books, and issued-book records. Members can view, search, and borrow available books. Admins accept book returns by issue ID.
 
 ## Features
-- Admin menu: add member, add book, remove book, view books, view available books, search books, view issued books, accept returns
-- Member menu: view available books, search books, borrow books
+- Admin menu: add member, add book, remove book, view books, view available books, search books by partial title, view issued books, accept returns
+- Member menu: view available books, search books by partial title, borrow books
 - Data stored in memory (no DB)
 - Simple CLI interface
 

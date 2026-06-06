@@ -4,6 +4,7 @@ import model.*;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class Library {
@@ -56,8 +57,17 @@ public class Library {
         books.values().stream().filter(book -> book.getCurrentQuantity() > 0).forEach(System.out :: println);
     }
 
-    public Book searchBook(String match){
-        return books.values().stream().filter(book -> book.getTitle().equalsIgnoreCase(match)).findFirst().orElse(null);
+    public List<Book> searchBooks(String match){
+        if(match == null || match.trim().isEmpty()){
+            return Collections.emptyList();
+        }
+
+        String normalizedMatch = match.trim().toLowerCase(Locale.ROOT);
+        return books.values().stream()
+                .filter(book -> book.getTitle().toLowerCase(Locale.ROOT).contains(normalizedMatch))
+                .sorted(Comparator.comparing(Book::getTitle, String.CASE_INSENSITIVE_ORDER)
+                        .thenComparingInt(Book::getId))
+                .collect(Collectors.toList());
     }
 
     public void viewIssuedBooks(){

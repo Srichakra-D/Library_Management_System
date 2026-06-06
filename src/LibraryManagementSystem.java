@@ -1,5 +1,6 @@
 import service.*;
 import model.*;
+import java.util.List;
 import java.util.Scanner;
 
 public class LibraryManagementSystem {
@@ -197,12 +198,7 @@ public class LibraryManagementSystem {
                     System.out.print("Enter Book Title to search: ");
                     String bookTitle = scanner.nextLine();
 
-                    Book found = library.searchBook(bookTitle);
-                    if(found != null){
-                        System.out.println(found);
-                    }else{
-                        System.out.println("Book Not Found");
-                    }
+                    displaySearchResults(library.searchBooks(bookTitle));
                     break;
                 case 7:
                     library.viewIssuedBooks();
@@ -256,12 +252,7 @@ public class LibraryManagementSystem {
                     System.out.print("Enter Book Title to search: ");
                     String bookTitle = scanner.nextLine();
 
-                    Book found = library.searchBook(bookTitle);
-                    if(found != null){
-                        System.out.println(found);
-                    }else{
-                        System.out.println("Book Not Found");
-                    }
+                    displaySearchResults(library.searchBooks(bookTitle));
                     break;
                 case 3:
                     int bId;
@@ -283,5 +274,14 @@ public class LibraryManagementSystem {
             }
 
         }
+    }
+
+    private static void displaySearchResults(List<Book> books){
+        if(books.isEmpty()){
+            System.out.println("Book Not Found");
+            return;
+        }
+
+        books.forEach(System.out::println);
     }
 }
